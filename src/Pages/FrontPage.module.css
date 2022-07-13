@@ -1,0 +1,10 @@
+.background {
+  display: flex;
+  flex-flow: column 0;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  color: white;
+  width: 100%;
+  min-height: 47.9rem;
+}

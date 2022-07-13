@@ -1,0 +1,13 @@
+.main {
+  display: flex;
+  flex-flow: column 0;
+  justify-content: center;
+  align-items: center;
+  min-width: 40%;
+  min-height: 40vh;
+  background-color: #494e68;
+}
+
+.link {
+  font-size: 2rem;
+}
