@@ -4,7 +4,7 @@ import MenuComponent from "./MenuComponent";
 const FrontPage = (props: any) => {
   return (
     <div className={styles.background}>
-      <MenuComponent />
+      <MenuComponent linkText="Start Chat" />
     </div>
   );
 };

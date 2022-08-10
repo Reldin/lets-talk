@@ -1,9 +1,13 @@
 import styles from "./MenuComponent.module.css";
 
-const MenuComponent = (props: any) => {
+interface MenuComponentProps {
+  linkText: string;
+}
+
+const MenuComponent = (props: MenuComponentProps) => {
   return (
     <div className={styles.main}>
-      <a className={styles.link}>Start Chat</a>
+      <a className={styles.link}>{props.linkText}</a>
     </div>
   );
 };

@@ -1,9 +1,19 @@
 .main {
   display: flex;
   flex-flow: row;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   height: 5rem;
   background-color: #192231;
   color: white;
+}
+
+.linkcontainer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.linkcontainer a {
+  margin: 0 2rem 0 0;
 }
