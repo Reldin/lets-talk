@@ -1,7 +1,8 @@
 .main {
   display: flex;
   flex-flow: row;
-  justify-content: flex-end;
+  /* justify-content: flex-end; */
+  justify-content: space-between;
   align-items: center;
   height: 5rem;
   background-color: #192231;
@@ -10,10 +11,30 @@
 
 .linkcontainer {
   display: flex;
+  margin-left: auto;
+  /* flex-direction: row;
   align-items: flex-end;
-  justify-content: flex-end;
+  justify-content: flex-end; */
 }
 
 .linkcontainer a {
   margin: 0 2rem 0 0;
+}
+
+.main a {
+  text-decoration: none;
+  color: white;
+}
+
+.home {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+
+.icon {
+  margin: 0 0 0 2rem;
 }

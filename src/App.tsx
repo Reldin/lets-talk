@@ -7,7 +7,7 @@ import NotFoundPage from "./Pages/NotFoundPage";
 const App = () => {
   return (
     <div className="App">
-      <Header link1="About us" link2="Sign Up" link3="Login" />
+      <Header home="home" link1="Categories" link2="Sign Up" link3="Login" />
       <Routes>
         <Route path="/" element={<FrontPage />} />
         <Route path="/signup" />
