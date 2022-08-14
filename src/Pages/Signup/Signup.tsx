@@ -11,20 +11,10 @@ const Signup = () => {
     event.preventDefault();
     event.stopPropagation();
     if (password !== passwordConfirmation) {
-      console.log(password + " and " + passwordConfirmation);
-      console.log("Passwords do not match");
       return;
     }
-    console.log(
-      "Username: " +
-        username +
-        "\nPassword: " +
-        password +
-        "\nPassword Confirmation: " +
-        passwordConfirmation +
-        "\nEmail: " +
-        email
-    );
+    if (username.length < 5 || password.length < 5) return;
+
     setUsername("");
     setPassword("");
     setPasswordConfirmation("");
