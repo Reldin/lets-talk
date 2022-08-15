@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Footer from "./Layout/Footer";
 import Header from "./Layout/Header";
+import Categories from "./Pages/Categories/Categories";
 import FrontPage from "./Pages/FrontPage";
 import Login from "./Pages/Login/Login";
 import NotFoundPage from "./Pages/NotFoundPage";
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/" element={<FrontPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/categories" element={<Categories />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
