@@ -9,10 +9,7 @@ const Footer = (props: any) => {
           <Link to="/about">About us</Link>
         </li>
         <li>
-          <Link to="/about">Contact us</Link>
-        </li>
-        <li>
-          <Link to="/about">Privacy</Link>
+          <Link to="/privacy">Privacy</Link>
         </li>
       </ul>
     </footer>
