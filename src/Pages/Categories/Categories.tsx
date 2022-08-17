@@ -1,23 +1,23 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CategoryCard from "../../Components/CategoryCard";
 import styles from "./Categories.module.css";
 
 const Categories = () => {
-  const list = [
-    "Sports",
-    "Music",
-    "Games",
-    "Cars",
-    "Gym",
-    "Hiking",
-    "Books",
-    "Movies",
-  ];
+  const [categories, setCategories] = useState<string[]>([]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:3001/posts`).then((response) => {
+      console.log(response.data);
+      setCategories(response.data);
+    });
+  }, []);
 
   return (
     <section>
       <ul className={styles.card_list}>
-        {list.map((item) => (
+        {categories.map((item) => (
           <Link
             to={item}
             className={styles.card_list_wrapper}
