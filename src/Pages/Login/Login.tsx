@@ -28,6 +28,7 @@ const Login = () => {
               }
               value={username || ""}
               className={styles.formcontrol_input}
+              autoComplete="username"
             />
           </div>
           <div className={styles.formcontrol}>
@@ -39,6 +40,7 @@ const Login = () => {
               }
               value={password || ""}
               className={styles.formcontrol_input}
+              autoComplete="current-password"
             />
           </div>
 

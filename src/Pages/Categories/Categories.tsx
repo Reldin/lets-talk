@@ -23,7 +23,7 @@ const Categories = () => {
             className={styles.card_list_wrapper}
             key={Math.random()}
           >
-            <CategoryCard category={item}></CategoryCard>{" "}
+            <CategoryCard category={item}></CategoryCard>
           </Link>
         ))}
       </ul>

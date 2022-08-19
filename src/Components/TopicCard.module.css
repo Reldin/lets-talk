@@ -1,0 +1,22 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: aqua;
+  border-radius: 5%;
+  margin: 20px 0 0 0;
+  background-color: #494e68;
+  color: white;
+  box-shadow: 0 10px 24px hsla(0, 0%, 0%, 0.25),
+    0 20px 48px hsla(0, 0%, 0%, 0.25), 0 1px 4px hsla(0, 0%, 0%, 0.25);
+  /* min-width: 15rem; */
+}
+
+.main_post {
+  margin: 25px;
+  width: 50%;
+}
+
+.main_post p {
+  background-color: #3f4d97;
+}

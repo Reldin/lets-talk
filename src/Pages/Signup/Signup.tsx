@@ -35,6 +35,7 @@ const Signup = () => {
               }
               value={username || ""}
               className={styles.formcontrol_input}
+              autoComplete="username"
             />
           </div>
           <div className={styles.formcontrol}>
@@ -46,6 +47,7 @@ const Signup = () => {
               }
               value={password || ""}
               className={styles.formcontrol_input}
+              autoComplete="new-password"
             />
           </div>
           <div className={styles.formcontrol}>
@@ -57,6 +59,7 @@ const Signup = () => {
               }
               value={passwordConfirmation || ""}
               className={styles.formcontrol_input}
+              autoComplete="new-password"
             />
           </div>
           <div className={styles.formcontrol}>
