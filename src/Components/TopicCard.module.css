@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: aqua;
   border-radius: 5%;
   margin: 20px 0 0 0;
   background-color: #494e68;
@@ -12,11 +11,93 @@
   /* min-width: 15rem; */
 }
 
-.main_post {
-  margin: 25px;
+.main_posts {
+  margin: 5px 0 0 0;
   width: 50%;
 }
 
-.main_post p {
-  background-color: #3f4d97;
+.main_comment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 50%;
+  max-width: 80%;
+}
+
+.main_comment_button {
+  margin: 10px 0;
+  background-color: #fb5096;
+  border-radius: 0.375rem;
+  border-color: #fb5096;
+  padding: 0.5em 2em;
+}
+
+.main_comment textarea {
+  overflow: auto;
+  padding: 15px;
+  max-width: 80%;
+  min-width: 60%;
+  min-height: 5em;
+
+  scrollbar-width: thin;
+  scrollbar-color: #249de4 #f5f5f5;
+
+  outline: none;
+}
+
+.main_comment textarea:focus {
+  outline: none;
+}
+
+.main_comment textarea::-webkit-scrollbar {
+  width: 15px;
+  background-color: #f5f5f5;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.main_comment textarea::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #249de4;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.main_posts_post {
+  display: flex;
+  flex-direction: column;
+}
+
+.main_posts p {
+  background-color: #ffffff;
+  color: black;
+  box-shadow: 0 10px 24px hsla(0, 0%, 0%, 0.25),
+    0 20px 48px hsla(0, 0%, 0%, 0.25), 0 1px 4px hsla(0, 0%, 0%, 0.25);
+  padding: 20px;
+  margin: 10px 0 0 0;
+}
+
+.main_posts span {
+  align-self: flex-end;
+}
+
+.main_button {
+  margin: 10px 0;
+  background-color: #fb5096;
+  border-radius: 0.375rem;
+  border-color: #fb5096;
+  padding: 0.5rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .main_posts {
+    margin: 5px 0 0 0;
+    width: 80%;
+  }
 }
