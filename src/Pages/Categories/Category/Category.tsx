@@ -16,7 +16,14 @@ const Category = () => {
           deserunt quo quod natus, temporibus perferendis harum itaque, pariatur
           dolore dicta quisquam?
         </p>
-        <TopicCard Title="test" Posts={["Post1", "Post2", "Post3"]} />
+        <TopicCard
+          Title="test"
+          Posts={[
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+            "Voluptatem corrupti suscipit neque sint quasi",
+            "soluta debitis laborum eum deserunt quo quod natus. Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+          ]}
+        />
         <TopicCard Title="test" Posts={["Post1", "Post2", "Post3"]} />
       </div>
     </section>
