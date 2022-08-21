@@ -4,8 +4,13 @@ import { Link } from "react-router-dom";
 import CategoryCard from "../../Components/CategoryCard";
 import styles from "./Categories.module.css";
 
+interface ICategory {
+  id: number;
+  name: string;
+}
+
 const Categories = () => {
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<ICategory[]>([]);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/posts`).then((response) => {
@@ -14,16 +19,17 @@ const Categories = () => {
     });
   }, []);
 
+  console.log("test: " + categories);
   return (
     <section>
       <ul className={styles.card_list}>
         {categories.map((item) => (
           <Link
-            to={item}
+            to={item.name}
             className={styles.card_list_wrapper}
             key={Math.random()}
           >
-            <CategoryCard category={item}></CategoryCard>
+            <CategoryCard category={item.name}></CategoryCard>
           </Link>
         ))}
       </ul>
