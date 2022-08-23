@@ -25,7 +25,7 @@ const Categories = () => {
       <ul className={styles.card_list}>
         {categories.map((item) => (
           <Link
-            to={item.name}
+            to={"" + item.id}
             className={styles.card_list_wrapper}
             key={Math.random()}
           >
