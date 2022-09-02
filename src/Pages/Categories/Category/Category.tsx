@@ -4,9 +4,22 @@ import { useParams } from "react-router-dom";
 import TopicCard from "../../../Components/TopicCard";
 import styles from "./Category.module.css";
 
+interface PostInterface {
+  id: number;
+  message: string;
+  appUserId: number;
+  topicId: number;
+  appUser: {
+    id: number;
+    username: string;
+  };
+}
+
 const Category = () => {
   const [name, setName] = useState<string>("");
-  const [topics, setTopics] = useState<{ id: number; title: string }[]>([]);
+  const [topics, setTopics] = useState<
+    { id: number; title: string; posts: PostInterface[] }[]
+  >([]);
   const parameter = useParams();
   // console.log("id " + parameter.id);
 
@@ -43,15 +56,7 @@ const Category = () => {
         </p>
         <>
           {topics.map((item) => (
-            <TopicCard
-              key={item.id}
-              Title={item.title}
-              Posts={[
-                "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-                "Voluptatem corrupti suscipit neque sint quasi",
-                "soluta debitis laborum eum deserunt quo quod natus. Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-              ]}
-            />
+            <TopicCard key={item.id} Title={item.title} Posts={item.posts} />
           ))}
         </>
         {topics.length === 0 && <div>No topics found. Create a new topic?</div>}

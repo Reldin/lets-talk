@@ -2,7 +2,18 @@ import styles from "./TopicCard.module.css";
 
 interface TopicCardProps {
   Title: string;
-  Posts: string[];
+  Posts: PostInterface[];
+}
+
+interface PostInterface {
+  id: number;
+  message: string;
+  appUserId: number;
+  topicId: number;
+  appUser: {
+    id: number;
+    username: string;
+  };
 }
 
 const TopicCard = (props: TopicCardProps) => {
@@ -17,8 +28,8 @@ const TopicCard = (props: TopicCardProps) => {
       <div className={styles.main_posts}>
         {props.Posts.map((post) => (
           <div className={styles.main_posts_post} key={Math.random()}>
-            <p>{post}</p>
-            <span>Username</span>
+            <p>{post.message}</p>
+            <span>{post.appUser.username}</span>
           </div>
         ))}
       </div>
