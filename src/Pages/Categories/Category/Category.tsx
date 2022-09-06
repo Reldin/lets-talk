@@ -54,11 +54,10 @@ const Category = () => {
           deserunt quo quod natus, temporibus perferendis harum itaque, pariatur
           dolore dicta quisquam?
         </p>
-        <>
-          {topics.map((item) => (
-            <TopicCard key={item.id} Title={item.title} Posts={item.posts} />
-          ))}
-        </>
+        {topics.map((item) => (
+          <TopicCard key={item.id} Title={item.title} Posts={item.posts} />
+        ))}
+
         {topics.length === 0 && <div>No topics found. Create a new topic?</div>}
       </div>
     </section>

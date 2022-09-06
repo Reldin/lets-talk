@@ -1,7 +1,6 @@
 .main {
   display: flex;
   flex-flow: row;
-  /* justify-content: flex-end; */
   justify-content: space-between;
   align-items: center;
   height: 56px;
@@ -14,9 +13,6 @@
 .linkcontainer {
   display: flex;
   margin-left: auto;
-  /* flex-direction: row;
-  align-items: flex-end;
-  justify-content: flex-end; */
 }
 
 .linkcontainer a {
@@ -38,5 +34,4 @@
 }
 
 .icon {
-  /* margin: 0 0 0 2rem; */
 }

@@ -12,7 +12,7 @@ import Signup from "./Pages/Signup/Signup";
 const App = () => {
   return (
     <div className="App">
-      <Header home="home" link1="Categories" link2="SignUp" link3="Login" />
+      <Header home="home" link1="Categories" link2="Sign Up" link3="Log in" />
       <Routes>
         <Route path="/" element={<FrontPage />} />
         <Route path="/signup" element={<Signup />} />
