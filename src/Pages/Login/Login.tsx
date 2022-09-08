@@ -8,8 +8,9 @@ import styles from "./Login.module.css";
 const Login = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const isError = useAppSelector((state) => state.auth.error.isError);
-  const dispatch = useAppDispatch();
+
+  const { isError, errorMessage } = useAppSelector((state) => state.auth);
+  const appDispatch = useAppDispatch();
   const isAuth = useAppSelector((state) => state.auth.isAuthenticated);
   const navigate = useNavigate();
 
@@ -17,15 +18,16 @@ const Login = () => {
     if (isAuth) {
       navigate("/");
     }
+    appDispatch(authActions.clearState());
   }, [isAuth, navigate]);
   const submitForm = (event: FormEvent) => {
     event.preventDefault();
     event.stopPropagation();
 
-    dispatch(userLogin({ username, password }))
+    appDispatch(userLogin({ username, password }))
       .unwrap()
-      .then((_data) => dispatch(authActions.setUsername(username)))
-      .catch((_err) => {
+      .then(() => appDispatch(authActions.setUsername(username)))
+      .catch(() => {
         console.log("Failed to login");
       });
 
@@ -62,12 +64,7 @@ const Login = () => {
               autoComplete="current-password"
             />
           </div>
-          {isError && (
-            <div className={styles.error}>
-              Failed to login.
-              <br /> Check inputs.
-            </div>
-          )}
+          {isError && <div className={styles.error}>{errorMessage}</div>}
 
           <button className={styles.submitbtn}>Login</button>
         </form>

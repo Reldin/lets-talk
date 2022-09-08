@@ -49,3 +49,7 @@
   border-color: #fb5096;
   padding: 0.5rem;
 }
+
+.error_div {
+  color: red;
+}
