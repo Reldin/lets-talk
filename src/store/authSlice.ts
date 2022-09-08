@@ -11,9 +11,10 @@ interface IAuthState {
   errorMessage: string;
 }
 
-const userToken: string | null = localStorage.getItem("authToken")
-  ? localStorage.getItem("authToken")
-  : null;
+const userToken: string | undefined =
+  localStorage.getItem("authToken") ?? undefined;
+
+const URL = "http://localhost:3001/";
 
 const initialAuthState = {
   isAuthenticated: false,
@@ -39,7 +40,6 @@ export const authSlice = createSlice({
     },
     setUsername(state, action: PayloadAction<string>) {
       state.username = action.payload;
-      state.isAuthenticated = true;
     },
     clearState(state) {
       state.isFetching = false;
@@ -69,9 +69,10 @@ export const authSlice = createSlice({
       .addCase(userLogout.rejected, (state) => {
         state.errorMessage = "Failed to logout";
       })
-      .addCase(userSignup.fulfilled, (state) => {
+      .addCase(userSignup.fulfilled, (state, action) => {
         state.isFetching = false;
         state.isSuccess = true;
+        state.errorMessage = action.payload;
       })
       .addCase(userSignup.rejected, (state, action) => {
         state.isFetching = false;
@@ -94,10 +95,7 @@ export const userLogin = createAsyncThunk(
   "auth/signin",
   async (payload: IAuthCredentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/auth/signin",
-        payload
-      );
+      const response = await axios.post(URL + "auth/signin", payload);
       if (response.status === 201) {
         localStorage.setItem("authToken", JSON.stringify(response.data));
 
@@ -129,16 +127,16 @@ interface ISignup {
 }
 
 export const userSignup = createAsyncThunk<
-  void,
+  string,
   ISignup,
   { rejectValue: string }
 >("auth/signup", async (payload: ISignup, thunkApi) => {
   try {
-    const response = await axios.post(
-      "http://localhost:3001/auth/signup",
-      payload
-    );
-    return response.data;
+    const response = await axios.post(URL + "auth/signup", payload);
+    if (response.status === 201) {
+      return "Success";
+    }
+    return thunkApi.rejectWithValue("Something went wrong.");
   } catch (err: any) {
     const errorMsg: string = err.response.data.message
       .toString()

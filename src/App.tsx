@@ -1,9 +1,7 @@
 import jwtDecode from "jwt-decode";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { IReduxStates } from "./helper/interfaces";
-import { useAppDispatch } from "./hooks";
+import { useAppDispatch, useAppSelector } from "./hooks";
 import Footer from "./Layout/Footer";
 import Header from "./Layout/Header";
 import AboutUs from "./Pages/AboutUs/AboutUs";
@@ -16,12 +14,12 @@ import Signup from "./Pages/Signup/Signup";
 import { authActions, userLogout } from "./store/authSlice";
 
 const App = () => {
-  const dispatch = useDispatch();
-  const appDispatch = useAppDispatch();
-  const redux = useSelector((state: IReduxStates) => state);
+  const dispatch = useAppDispatch();
+  const redux = useAppSelector((state) => state);
 
   useEffect(() => {
-    const token: string | null = localStorage.getItem("authToken");
+    const token: string | undefined =
+      localStorage.getItem("authToken") ?? undefined;
     if (token) {
       const decodedToken: { username: string; iat: number; exp: number } =
         jwtDecode(token);
@@ -30,10 +28,11 @@ const App = () => {
   }, [dispatch]);
 
   const handleLogout = () => {
-    appDispatch(userLogout())
-      .unwrap()
-      .then((response) => console.log("Logged out"))
-      .catch((error) => console.log("failed to log out"));
+    try {
+      dispatch(userLogout());
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
 
   return (

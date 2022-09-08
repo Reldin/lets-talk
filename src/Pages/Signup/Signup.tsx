@@ -11,24 +11,24 @@ const Signup = () => {
   const [email, setEmail] = useState<string>("");
   const [inputErrorMessage, setInputErrorMessage] = useState<string>("");
 
-  const appDispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { isSuccess, isError, errorMessage, isAuthenticated } = useAppSelector(
     (state) => state.auth
   );
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated || isSuccess) {
       navigate("/");
     }
-    appDispatch(authActions.clearState());
-  }, [isAuthenticated, navigate, appDispatch]);
+    dispatch(authActions.clearState());
+  }, [isAuthenticated, navigate, dispatch, isSuccess]);
 
   const submitForm = (event: FormEvent) => {
     event.preventDefault();
     event.stopPropagation();
     if (password !== passwordConfirmation) {
-      setInputErrorMessage("Passwords are no the same.");
+      setInputErrorMessage("Passwords are not the same.");
       return;
     }
     if (username.length < 5) {
@@ -40,14 +40,11 @@ const Signup = () => {
       return;
     }
 
-    appDispatch(userSignup({ username, password, email }))
-      .unwrap()
-      .then((resp) => {
-        console.log(resp);
-      })
-      .catch((err: Error) => {
-        console.log(err);
-      });
+    try {
+      dispatch(userSignup({ username, password, email })).unwrap();
+    } catch (err: any) {
+      console.error(err);
+    }
     if (isSuccess) {
       setUsername("");
       setPassword("");

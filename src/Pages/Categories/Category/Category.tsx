@@ -21,7 +21,6 @@ const Category = () => {
     { id: number; title: string; posts: PostInterface[] }[]
   >([]);
   const parameter = useParams();
-  // console.log("id " + parameter.id);
 
   useEffect(() => {
     axios

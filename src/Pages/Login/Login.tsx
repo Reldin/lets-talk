@@ -9,30 +9,30 @@ const Login = () => {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const { isError, errorMessage } = useAppSelector((state) => state.auth);
-  const appDispatch = useAppDispatch();
-  const isAuth = useAppSelector((state) => state.auth.isAuthenticated);
+  const { isError, errorMessage, isAuthenticated } = useAppSelector(
+    (state) => state.auth
+  );
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuth) {
+    if (isAuthenticated) {
       navigate("/");
     }
-    appDispatch(authActions.clearState());
-  }, [isAuth, navigate, appDispatch]);
+    dispatch(authActions.clearState());
+  }, [isAuthenticated, navigate, dispatch]);
   const submitForm = (event: FormEvent) => {
     event.preventDefault();
     event.stopPropagation();
 
-    appDispatch(userLogin({ username, password }))
-      .unwrap()
-      .then(() => appDispatch(authActions.setUsername(username)))
-      .catch(() => {
-        console.log("Failed to login");
-      });
-
-    setUsername("");
-    setPassword("");
+    try {
+      dispatch(userLogin({ username, password })).unwrap();
+      dispatch(authActions.setUsername(username));
+      setUsername("");
+      setPassword("");
+    } catch (err: any) {
+      console.error(err.message);
+    }
   };
 
   return (

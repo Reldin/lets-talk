@@ -27,7 +27,7 @@ const TopicCard = (props: TopicCardProps) => {
       </form>
       <div className={styles.main_posts}>
         {props.Posts.map((post) => (
-          <div className={styles.main_posts_post} key={Math.random()}>
+          <div className={styles.main_posts_post} key={post.id}>
             <p>{post.message}</p>
             <span>{post.appUser.username}</span>
           </div>
