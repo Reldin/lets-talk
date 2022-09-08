@@ -8,7 +8,12 @@ interface IAuthState {
     message: string;
   };
   username: string;
+  userToken: string | null;
 }
+
+const userToken: string | null = localStorage.getItem("authToken")
+  ? localStorage.getItem("authToken")
+  : null;
 
 const initialAuthState = {
   isAuthenticated: false,
@@ -17,6 +22,7 @@ const initialAuthState = {
     message: "Failed To login.",
   },
   username: "",
+  userToken,
 } as IAuthState;
 
 export const authSlice = createSlice({
@@ -29,6 +35,7 @@ export const authSlice = createSlice({
     logout(state) {
       state.isAuthenticated = false;
       state.username = "";
+      state.userToken = null;
     },
     setUsername(state, action: PayloadAction<string>) {
       state.username = action.payload;
@@ -39,11 +46,19 @@ export const authSlice = createSlice({
     builder
       .addCase(userLogin.fulfilled, (state, action) => {
         state.isAuthenticated = true;
+        state.userToken = action.payload;
       })
       .addCase(userLogin.rejected, (state, action) => {
         state.error.isError = true;
         state.error.message = "Failed to login.";
         state.isAuthenticated = false;
+      })
+      .addCase(userLogout.fulfilled, (state) => {
+        state.isAuthenticated = false;
+        state.username = "";
+      })
+      .addCase(userLogout.rejected, (state) => {
+        state.error.message = "Failed to logout";
       });
   },
 });
@@ -63,9 +78,19 @@ export const userLogin = createAsyncThunk(
         "http://localhost:3001/auth/signin",
         payload
       );
-      authActions.login();
       localStorage.setItem("authToken", JSON.stringify(response.data));
       return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
+export const userLogout = createAsyncThunk(
+  "auth/signout",
+  async (_payload, { rejectWithValue }) => {
+    try {
+      localStorage.removeItem("authToken");
     } catch (err: any) {
       return rejectWithValue(err.message);
     }

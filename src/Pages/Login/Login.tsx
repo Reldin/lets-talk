@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import { userLogin } from "../../store/authSlice";
+import { authActions, userLogin } from "../../store/authSlice";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./Login.module.css";
@@ -24,7 +24,7 @@ const Login = () => {
 
     dispatch(userLogin({ username, password }))
       .unwrap()
-      .then((_data) => console.log("Login succeeded"))
+      .then((_data) => dispatch(authActions.setUsername(username)))
       .catch((_err) => {
         console.log("Failed to login");
       });

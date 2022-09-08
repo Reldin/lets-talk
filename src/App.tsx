@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { IReduxStates } from "./helper/interfaces";
+import { useAppDispatch } from "./hooks";
 import Footer from "./Layout/Footer";
 import Header from "./Layout/Header";
 import AboutUs from "./Pages/AboutUs/AboutUs";
@@ -12,10 +13,11 @@ import FrontPage from "./Pages/FrontPage";
 import Login from "./Pages/Login/Login";
 import NotFoundPage from "./Pages/NotFoundPage";
 import Signup from "./Pages/Signup/Signup";
-import { authActions } from "./store/authSlice";
+import { authActions, userLogout } from "./store/authSlice";
 
 const App = () => {
   const dispatch = useDispatch();
+  const appDispatch = useAppDispatch();
   const redux = useSelector((state: IReduxStates) => state);
 
   useEffect(() => {
@@ -28,7 +30,10 @@ const App = () => {
   }, [dispatch]);
 
   const handleLogout = () => {
-    dispatch(authActions.logout());
+    appDispatch(userLogout())
+      .unwrap()
+      .then((response) => console.log("Logged out"))
+      .catch((error) => console.log("failed to log out"));
   };
 
   return (
