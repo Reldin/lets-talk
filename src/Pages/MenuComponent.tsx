@@ -7,7 +7,9 @@ interface MenuComponentProps {
 const MenuComponent = (props: MenuComponentProps) => {
   return (
     <div className={styles.main}>
-      <a className={styles.link}>{props.linkText}</a>
+      <a href="/" className={styles.link}>
+        {props.linkText}
+      </a>
     </div>
   );
 };

@@ -3,7 +3,7 @@
   flex-flow: row;
   justify-content: space-between;
   align-items: center;
-  height: 56px;
+  height: 60px;
   background-color: #192231;
   color: white;
   padding: 0 16px;
@@ -13,6 +13,7 @@
 .linkcontainer {
   display: flex;
   margin-left: auto;
+  align-items: center;
 }
 
 .linkcontainer a {
@@ -34,4 +35,23 @@
 }
 
 .icon {
+}
+
+.main_button {
+  background-color: #fb5096;
+  border-radius: 0.375rem;
+  border-color: #fb5096;
+  color: white;
+  padding: 0.5rem 10px 0.5rem 10px;
+}
+.main_button:is(:hover, :focus) {
+  background-color: #fb5096;
+  border-radius: 0.375rem;
+  border-color: #e689b0;
+  color: rgb(0, 0, 0);
+  padding: 0.5rem 10px 0.5rem 10px;
+}
+
+.username_div {
+  margin-right: 2rem;
 }

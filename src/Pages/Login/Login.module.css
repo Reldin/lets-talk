@@ -49,3 +49,8 @@
   border-color: #fb5096;
   padding: 0.5rem;
 }
+
+.error {
+  color: red;
+  text-align: center;
+}

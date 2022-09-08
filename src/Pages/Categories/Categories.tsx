@@ -2,12 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CategoryCard from "../../Components/CategoryCard";
+import { ICategory } from "../../helper/interfaces";
 import styles from "./Categories.module.css";
-
-interface ICategory {
-  id: number;
-  name: string;
-}
 
 const Categories = () => {
   const [categories, setCategories] = useState<ICategory[]>([]);
@@ -19,7 +15,6 @@ const Categories = () => {
     });
   }, []);
 
-  console.log("test: " + categories);
   return (
     <section>
       <ul className={styles.card_list}>
@@ -27,7 +22,7 @@ const Categories = () => {
           <Link
             to={String(item.id)}
             className={styles.card_list_wrapper}
-            key={Math.random()}
+            key={item.id}
           >
             <CategoryCard category={item.name}></CategoryCard>
           </Link>
