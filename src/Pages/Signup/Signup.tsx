@@ -22,7 +22,7 @@ const Signup = () => {
       navigate("/");
     }
     appDispatch(authActions.clearState());
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, appDispatch]);
 
   const submitForm = (event: FormEvent) => {
     event.preventDefault();

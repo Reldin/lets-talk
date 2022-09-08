@@ -19,7 +19,7 @@ const Login = () => {
       navigate("/");
     }
     appDispatch(authActions.clearState());
-  }, [isAuth, navigate]);
+  }, [isAuth, navigate, appDispatch]);
   const submitForm = (event: FormEvent) => {
     event.preventDefault();
     event.stopPropagation();
