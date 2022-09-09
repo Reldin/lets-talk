@@ -54,7 +54,12 @@ const Category = () => {
           dolore dicta quisquam?
         </p>
         {topics.map((item) => (
-          <TopicCard key={item.id} Title={item.title} Posts={item.posts} />
+          <TopicCard
+            key={item.id}
+            topicId={item.id}
+            Title={item.title}
+            Posts={item.posts}
+          />
         ))}
 
         {topics.length === 0 && <div>No topics found. Create a new topic?</div>}

@@ -36,7 +36,7 @@ export const authSlice = createSlice({
     logout(state) {
       state.isAuthenticated = false;
       state.username = "";
-      state.userToken = null;
+      state.userToken = undefined!;
     },
     setUsername(state, action: PayloadAction<string>) {
       state.username = action.payload;
