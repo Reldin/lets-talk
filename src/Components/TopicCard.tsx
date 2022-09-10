@@ -22,7 +22,6 @@ interface PostInterface {
 
 const TopicCard = (props: TopicCardProps) => {
   const [limit, setLimit] = useState<boolean>(true);
-  // const [posts, setPosts] = useState<PostInterface[]>(props.Posts);
   const commentRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
   const { isError, isFetching, isSuccess } = useAppSelector(
@@ -82,14 +81,12 @@ const TopicCard = (props: TopicCardProps) => {
             </div>
           ))}
         {limit &&
-          props.Posts.slice(0, postlimit)
-            .reverse()
-            .map((post) => (
-              <div className={styles.main_posts_post} key={post.id}>
-                <p>{post.message}</p>
-                <span>{post.appUser.username}</span>
-              </div>
-            ))}
+          props.Posts.slice(0, postlimit).map((post) => (
+            <div className={styles.main_posts_post} key={post.id}>
+              <p>{post.message}</p>
+              <span>{post.appUser.username}</span>
+            </div>
+          ))}
       </div>
       <button className={styles.main_button} onClick={() => setLimit(!limit)}>
         Show more
