@@ -20,12 +20,6 @@ const App = () => {
   useEffect(() => {
     const token: string | undefined =
       localStorage.getItem("authToken") ?? undefined;
-
-    // console.log(JSON.parse(token!));
-
-    // const test = JSON.parse(token!);
-    // console.log(test.accessToken);
-    console.log(token);
     if (token) {
       const decodedToken: { username: string; iat: number; exp: number } =
         jwtDecode(token);

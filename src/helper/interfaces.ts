@@ -10,3 +10,7 @@ export interface IReduxStates {
     username: string;
   };
 }
+
+export interface INewCategory {
+  name: string;
+}

@@ -57,13 +57,15 @@ export const postSlice = createSlice({
   },
 });
 
+export const postActions = postSlice.actions;
+
 export interface IPost {
   topicId: number;
   message: string;
 }
 
 export const addAsyncPost = createAsyncThunk(
-  URL + "post",
+  "posts/post",
   async (payload: IPost, thunkApi) => {
     try {
       const { topicId, message } = payload;
