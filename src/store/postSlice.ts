@@ -36,23 +36,34 @@ export const postSlice = createSlice({
       state.posts = action.payload;
     },
     addPost(state) {},
+    clearState(state) {
+      state.isFetching = false;
+      state.isSuccess = false;
+      state.isError = false;
+      state.errorMessage = "";
+    },
   },
   extraReducers(builder) {
     builder
       .addCase(addAsyncPost.pending, (state, action) => {
         state.isFetching = true;
-        state.isError = false;
         state.isSuccess = false;
+        state.isError = false;
       })
       .addCase(addAsyncPost.rejected, (state, action) => {
         state.isFetching = false;
         state.isSuccess = false;
         state.isError = true;
       })
-      .addCase(addAsyncPost.fulfilled, (state, payload) => {
+      .addCase(addAsyncPost.fulfilled, (state, action) => {
         state.isFetching = false;
         state.isSuccess = true;
         state.isError = false;
+        if (action.payload) {
+          state.errorMessage = action.payload!.toString(); // toString() just in case it returns an array of strings
+        } else {
+          state.errorMessage = "You are not logged in.";
+        }
       });
   },
 });
@@ -84,7 +95,7 @@ export const addAsyncPost = createAsyncThunk(
 
       return response.data;
     } catch (err: any) {
-      return thunkApi.rejectWithValue(err.message);
+      return thunkApi.rejectWithValue(err.response.data.message);
     }
   }
 );

@@ -3,6 +3,13 @@ export interface ICategory {
   name: string;
 }
 
+export interface ITopic {
+  id: number;
+  categoryId: number;
+  title: string;
+  appUserId: number;
+}
+
 export interface IReduxStates {
   category: [];
   auth: {
@@ -13,4 +20,9 @@ export interface IReduxStates {
 
 export interface INewCategory {
   name: string;
+}
+
+export interface INewTopic {
+  categoryId: number | string;
+  title: string;
 }

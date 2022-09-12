@@ -22,7 +22,7 @@ const Categories = () => {
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && inputValue.length > 0) {
       setInputValue("");
     }
   }, [isSuccess, inputValue]);
@@ -31,7 +31,7 @@ const Categories = () => {
     axios.get(`http://localhost:3001/posts`).then((response) => {
       setCategories(response.data);
     });
-  }, [isSuccess]);
+  }, []);
 
   const handleAddCategory = (event: FormEvent) => {
     event.preventDefault();

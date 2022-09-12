@@ -1,13 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { addAsyncPost, IPost } from "../store/postSlice";
+import { addAsyncPost, IPost, postActions } from "../store/postSlice";
 import styles from "./TopicCard.module.css";
-
-interface TopicCardProps {
-  Title: string;
-  topicId: number;
-  Posts: PostInterface[];
-}
 
 interface PostInterface {
   id: number;
@@ -19,6 +13,11 @@ interface PostInterface {
     username: string;
   };
 }
+interface TopicCardProps {
+  Title: string;
+  topicId: number;
+  Posts: PostInterface[];
+}
 
 const TopicCard = (props: TopicCardProps) => {
   const [limit, setLimit] = useState<boolean>(true);
@@ -29,6 +28,10 @@ const TopicCard = (props: TopicCardProps) => {
   );
 
   const postlimit: number = 3;
+
+  useEffect(() => {
+    dispatch(postActions.clearState());
+  });
 
   const postComment = (event: FormEvent) => {
     event.preventDefault();
@@ -76,20 +79,20 @@ const TopicCard = (props: TopicCardProps) => {
         {!limit &&
           props.Posts.map((post) => (
             <div className={styles.main_posts_post} key={post.id}>
-              <p>{post.message}</p>
               <span>{post.appUser.username}</span>
+              <p>{post.message}</p>
             </div>
           ))}
         {limit &&
           props.Posts.slice(0, postlimit).map((post) => (
             <div className={styles.main_posts_post} key={post.id}>
-              <p>{post.message}</p>
               <span>{post.appUser.username}</span>
+              <p>{post.message}</p>
             </div>
           ))}
       </div>
       <button className={styles.main_button} onClick={() => setLimit(!limit)}>
-        Show more
+        {limit ? "Show more" : "Show less"}
       </button>
     </article>
   );

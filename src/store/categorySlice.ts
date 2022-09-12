@@ -45,11 +45,10 @@ export const categorySlice = createSlice({
         state.isFetching = false;
         state.isError = true;
         state.isSuccess = false;
-        console.log(action.payload);
-        if (typeof action.payload === "string") {
-          state.errorMessage = action.payload!;
+        if (action.payload) {
+          state.errorMessage = action.payload!.toString(); // toString() just in case it returns an array of strings
         } else {
-          state.errorMessage = action.payload![0];
+          state.errorMessage = "You are not logged in.";
         }
       })
       .addCase(addAsyncCategory.fulfilled, (state) => {
@@ -69,7 +68,7 @@ export const addAsyncCategory = createAsyncThunk<
 >("posts/categories/category", async (payload: INewCategory, thunkApi) => {
   try {
     const { name } = payload;
-    const authString: string =
+    const authString: string | undefined =
       "Bearer " + JSON.parse(localStorage.getItem("authToken")!).accessToken;
 
     const response = await axios.post(
@@ -81,7 +80,6 @@ export const addAsyncCategory = createAsyncThunk<
         },
       }
     );
-
     return response.data;
   } catch (err: any) {
     return thunkApi.rejectWithValue(err.response.data.message);
