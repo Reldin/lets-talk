@@ -1,18 +1,10 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
+import { PostInterface } from "../helper/interfaces";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { addAsyncPost, IPost, postActions } from "../store/postSlice";
+import Comment from "./Comment";
 import styles from "./TopicCard.module.css";
 
-interface PostInterface {
-  id: number;
-  message: string;
-  appUserId: number;
-  topicId: number;
-  appUser: {
-    id: number;
-    username: string;
-  };
-}
 interface TopicCardProps {
   Title: string;
   topicId: number;
@@ -31,7 +23,7 @@ const TopicCard = (props: TopicCardProps) => {
 
   useEffect(() => {
     dispatch(postActions.clearState());
-  });
+  }, [isSuccess, dispatch]);
 
   const postComment = (event: FormEvent) => {
     event.preventDefault();
@@ -77,18 +69,10 @@ const TopicCard = (props: TopicCardProps) => {
       </form>
       <div className={styles.main_posts}>
         {!limit &&
-          props.Posts.map((post) => (
-            <div className={styles.main_posts_post} key={post.id}>
-              <span>{post.appUser.username}</span>
-              <p>{post.message}</p>
-            </div>
-          ))}
+          props.Posts.map((post) => <Comment key={post.id} post={post} />)}
         {limit &&
           props.Posts.slice(0, postlimit).map((post) => (
-            <div className={styles.main_posts_post} key={post.id}>
-              <span>{post.appUser.username}</span>
-              <p>{post.message}</p>
-            </div>
+            <Comment key={post.id} post={post} />
           ))}
       </div>
       <button className={styles.main_button} onClick={() => setLimit(!limit)}>

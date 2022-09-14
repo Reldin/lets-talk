@@ -57,11 +57,9 @@ const Category = () => {
 
     if (!categoryId) return;
     const data: INewTopic = { categoryId: categoryId, title: inputValue };
+    dispatch(addAsyncTopic(data));
 
-    dispatch(addAsyncTopic(data))
-      .unwrap()
-      .then(() => setInputValue(""))
-      .catch((err) => console.log("You are not logged in"));
+    setInputValue("");
   };
 
   return (
@@ -101,7 +99,7 @@ const Category = () => {
             {topicState.isError && (
               <div className={styles.main_form_error}>
                 {topicState.errorMessage.split(",").map((str) => (
-                  <p key={str}>{str}</p>
+                  <span key={str}>{str}</span>
                 ))}
               </div>
             )}

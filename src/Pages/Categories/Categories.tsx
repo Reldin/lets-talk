@@ -45,13 +45,16 @@ const Categories = () => {
 
   return (
     <section className={styles.main_section}>
+      <span className={styles.main_section_title}>Categories</span>
       <div className={styles.main_section_add_category}>
-        <button
-          className={styles.add_category_button}
-          onClick={(event) => setShowAddCategoryForm(!showAddCategoryForm)}
-        >
-          {showAddCategoryForm ? "Close" : "Add Category"}
-        </button>
+        <div className={styles.main_section_add_category_control}>
+          <button
+            className={styles.add_category_control_button}
+            onClick={(event) => setShowAddCategoryForm(!showAddCategoryForm)}
+          >
+            {showAddCategoryForm ? "Close" : "Add Category"}
+          </button>
+        </div>
         {showAddCategoryForm && (
           <form
             className={styles.add_category_form}

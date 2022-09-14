@@ -45,7 +45,7 @@ export const postSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(addAsyncPost.pending, (state, action) => {
+      .addCase(addAsyncPost.pending, (state) => {
         state.isFetching = true;
         state.isSuccess = false;
         state.isError = false;
@@ -54,16 +54,37 @@ export const postSlice = createSlice({
         state.isFetching = false;
         state.isSuccess = false;
         state.isError = true;
-      })
-      .addCase(addAsyncPost.fulfilled, (state, action) => {
-        state.isFetching = false;
-        state.isSuccess = true;
-        state.isError = false;
         if (action.payload) {
           state.errorMessage = action.payload!.toString(); // toString() just in case it returns an array of strings
         } else {
           state.errorMessage = "You are not logged in.";
         }
+      })
+      .addCase(addAsyncPost.fulfilled, (state) => {
+        state.isFetching = false;
+        state.isSuccess = true;
+        state.isError = false;
+      })
+      .addCase(deleteAsyncPost.pending, (state) => {
+        state.isError = false;
+        state.isSuccess = false;
+        state.isFetching = true;
+      })
+      .addCase(deleteAsyncPost.rejected, (state, action) => {
+        state.isError = true;
+        state.isSuccess = false;
+        state.isFetching = false;
+        if (action.payload) {
+          console.log("test ", action.payload);
+          state.errorMessage = action.payload!.toString(); // toString() just in case it returns an array of strings
+        } else {
+          state.errorMessage = "You are not logged in.";
+        }
+      })
+      .addCase(deleteAsyncPost.fulfilled, (state) => {
+        state.isError = false;
+        state.isSuccess = true;
+        state.isFetching = false;
       });
   },
 });
@@ -75,27 +96,47 @@ export interface IPost {
   message: string;
 }
 
-export const addAsyncPost = createAsyncThunk(
-  "posts/post",
-  async (payload: IPost, thunkApi) => {
-    try {
-      const { topicId, message } = payload;
-      const authString: string =
-        "Bearer " + JSON.parse(localStorage.getItem("authToken")!).accessToken;
+export const addAsyncPost = createAsyncThunk<
+  string,
+  IPost,
+  { rejectValue: string }
+>("posts/post", async (payload: IPost, thunkApi) => {
+  try {
+    const { topicId, message } = payload;
+    const authString: string =
+      "Bearer " + JSON.parse(localStorage.getItem("authToken")!).accessToken;
 
-      const response = await axios.post(
-        `${URL}post`,
-        { topicId, message },
-        {
-          headers: {
-            Authorization: authString,
-          },
-        }
-      );
+    const response = await axios.post(
+      `${URL}post`,
+      { topicId, message },
+      {
+        headers: {
+          Authorization: authString,
+        },
+      }
+    );
 
-      return response.data;
-    } catch (err: any) {
-      return thunkApi.rejectWithValue(err.response.data.message);
-    }
+    return response.data;
+  } catch (err: any) {
+    return thunkApi.rejectWithValue(err.response.data.message);
   }
-);
+});
+
+export const deleteAsyncPost = createAsyncThunk<
+  string,
+  number,
+  { rejectValue: string }
+>("posts/post/:id", async (payload: number, thunkApi) => {
+  try {
+    const authString: string =
+      "Bearer " + JSON.parse(localStorage.getItem("authToken")!).accessToken;
+    const response = await axios.delete(`${URL}post/${payload}`, {
+      headers: {
+        Authorization: authString,
+      },
+    });
+    return response.data;
+  } catch (err: any) {
+    return thunkApi.rejectWithValue(err.response.data.message);
+  }
+});

@@ -26,3 +26,14 @@ export interface INewTopic {
   categoryId: number | string;
   title: string;
 }
+
+export interface PostInterface {
+  id: number;
+  message: string;
+  appUserId: number;
+  topicId: number;
+  appUser: {
+    id: number;
+    username: string;
+  };
+}

@@ -67,7 +67,6 @@ export const addAsyncTopic = createAsyncThunk<
 
     return response.data;
   } catch (err: any) {
-    console.log(err.response.data.message);
     return thunkApi.rejectWithValue(err.response.data.message);
   }
 });
