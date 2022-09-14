@@ -20,17 +20,14 @@ const App = () => {
   useEffect(() => {
     const token: string | undefined =
       localStorage.getItem("authToken") ?? undefined;
-
-    // console.log(JSON.parse(token!));
-
-    // const test = JSON.parse(token!);
-    // console.log(test.accessToken);
-    console.log(token);
     if (token) {
       const decodedToken: { username: string; iat: number; exp: number } =
         jwtDecode(token);
-      dispatch(authActions.setUsername(decodedToken.username));
-      dispatch(authActions.login());
+
+      if (new Date(decodedToken.exp * 1000).getTime() - Date.now() > 0) {
+        dispatch(authActions.setUsername(decodedToken.username));
+        dispatch(authActions.login());
+      }
     }
   }, [dispatch]);
 
