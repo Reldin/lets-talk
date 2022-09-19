@@ -25,7 +25,7 @@ const Categories = () => {
     axios.get(`http://localhost:3001/posts`).then((response) => {
       setCategories(response.data);
     });
-  });
+  }, []);
 
   const handleAddCategory = (event: FormEvent) => {
     event.preventDefault();
