@@ -73,6 +73,11 @@ const Category = () => {
           repellat minima eos mollitia? Magnam aliquid amet veniam delectus
           atque vitae possimus deleniti.
         </p>
+        {topics.length === 0 && (
+          <div className={styles.main_isempty}>
+            No topics found. Create a new topic?
+          </div>
+        )}
         <form className={styles.main_form} onSubmit={handleAddTopic}>
           <div className={styles.main_form_div}>
             <label>Add Topic</label>
@@ -98,7 +103,7 @@ const Category = () => {
             )}
             {topicState.isError && (
               <div className={styles.main_form_error}>
-                {topicState.errorMessage.split(",").map((str) => (
+                {topicState.errorMessage.split(",").map((str: string) => (
                   <span key={str}>{str}</span>
                 ))}
               </div>
@@ -117,8 +122,6 @@ const Category = () => {
               Posts={item.posts}
             />
           ))}
-
-        {topics.length === 0 && <div>No topics found. Create a new topic?</div>}
       </div>
     </section>
   );

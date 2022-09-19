@@ -16,6 +16,10 @@
   margin-bottom: 3rem;
 }
 
+.main_isempty {
+  margin: 0 auto 1rem;
+}
+
 .main_form {
   display: flex column;
   justify-content: center;

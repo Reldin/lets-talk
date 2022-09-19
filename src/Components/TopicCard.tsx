@@ -1,7 +1,9 @@
+import axios from "axios";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { PostInterface } from "../helper/interfaces";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { addAsyncPost, IPost, postActions } from "../store/postSlice";
+import { deleteAsyncTopic } from "../store/topicSlice";
 import Comment from "./Comment";
 import styles from "./TopicCard.module.css";
 
@@ -12,14 +14,23 @@ interface TopicCardProps {
 }
 
 const TopicCard = (props: TopicCardProps) => {
+  const [topicOwner, setTopicOwner] = useState<string>();
   const [limit, setLimit] = useState<boolean>(true);
   const commentRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
   const { isError, isFetching, isSuccess } = useAppSelector(
     (state) => state.post
   );
+  const authState = useAppSelector((state) => state.auth);
 
   const postlimit: number = 3;
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/posts/categories/topic/1`)
+      .then((response) => setTopicOwner(response.data))
+      .catch(() => console.log("fail"));
+  }, []);
 
   useEffect(() => {
     dispatch(postActions.clearState());
@@ -41,6 +52,10 @@ const TopicCard = (props: TopicCardProps) => {
     );
   };
 
+  const handleDeleteTopic = (id: number) => {
+    dispatch(deleteAsyncTopic(id));
+  };
+
   useEffect(() => {
     if (isError) {
     }
@@ -55,7 +70,17 @@ const TopicCard = (props: TopicCardProps) => {
 
   return (
     <article className={styles.main}>
-      <h1>{props.Title}</h1>
+      {authState.isAuthenticated && topicOwner === authState.username && (
+        <button
+          className={styles.main_delete}
+          onClick={() => handleDeleteTopic(props.topicId)}
+        >
+          X
+        </button>
+      )}
+      <div className={styles.main_header}>
+        <h1>{props.Title}</h1>
+      </div>
       <form className={styles.main_comment}>
         <label htmlFor="Post">Post a Comment</label>
         <textarea

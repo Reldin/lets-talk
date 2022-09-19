@@ -11,6 +11,26 @@
   max-width: 900px;
 }
 
+.main_delete {
+  align-self: flex-end;
+  margin: 10px 10px 0 0;
+  background-color: #fb5096;
+  border-radius: 0.375rem;
+  border-color: #fb5096;
+  color: white;
+}
+
+.main_header {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.main_header h1 {
+  align-self: center;
+  text-align: center;
+}
+
 .main_posts {
   display: flex;
   flex-direction: column;

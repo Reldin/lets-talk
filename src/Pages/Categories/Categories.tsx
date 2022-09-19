@@ -22,16 +22,10 @@ const Categories = () => {
   };
 
   useEffect(() => {
-    if (isSuccess && inputValue.length > 0) {
-      setInputValue("");
-    }
-  }, [isSuccess, inputValue]);
-
-  useEffect(() => {
     axios.get(`http://localhost:3001/posts`).then((response) => {
       setCategories(response.data);
     });
-  }, []);
+  });
 
   const handleAddCategory = (event: FormEvent) => {
     event.preventDefault();
@@ -41,6 +35,7 @@ const Categories = () => {
     const newCategory: INewCategory = { name };
 
     dispatch(addAsyncCategory(newCategory));
+    setInputValue("");
   };
 
   return (
@@ -75,9 +70,13 @@ const Categories = () => {
                 onChange={(event) => setInputValue(event.target.value)}
               />
               {inputValue.length >= 0 && `${inputValue.length}/40`}
-              {isError && <div>{errorMessage}</div>}
+              {isError && <div className={styles.error}>{errorMessage}</div>}
               {isFetching && <div>Trying to add category.</div>}
-              {isSuccess && <div>Successfully added a category.</div>}
+              {isSuccess && (
+                <div className={styles.success}>
+                  Successfully added a category.
+                </div>
+              )}
               <button type="submit">Add Category</button>
             </div>
           </form>

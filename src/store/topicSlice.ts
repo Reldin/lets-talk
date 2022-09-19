@@ -4,6 +4,8 @@ import { INewTopic, ITopic } from "../helper/interfaces";
 
 const URL = "http://localhost:3001/posts/";
 
+const notLoggedInMessage = "You are not logged in.";
+
 interface ITopicState {
   topics: ITopic[];
   isFetching: boolean;
@@ -31,7 +33,7 @@ export const topicSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(addAsyncTopic.fulfilled, (state, action) => {
+      .addCase(addAsyncTopic.fulfilled, (state) => {
         state.isSuccess = true;
         state.isError = false;
       })
@@ -41,7 +43,20 @@ export const topicSlice = createSlice({
         if (action.payload) {
           state.errorMessage = action.payload!.toString(); // toString() just in case it returns an array of strings
         } else {
-          state.errorMessage = "You are not logged in.";
+          state.errorMessage = notLoggedInMessage;
+        }
+      })
+      .addCase(deleteAsyncTopic.fulfilled, (state) => {
+        state.isSuccess = true;
+        state.isError = false;
+      })
+      .addCase(deleteAsyncTopic.rejected, (state, action) => {
+        state.isSuccess = false;
+        state.isError = true;
+        if (action.payload) {
+          state.errorMessage = action.payload.toString();
+        } else {
+          state.errorMessage = notLoggedInMessage;
         }
       });
   },
@@ -68,5 +83,25 @@ export const addAsyncTopic = createAsyncThunk<
     return response.data;
   } catch (err: any) {
     return thunkApi.rejectWithValue(err.response.data.message);
+  }
+});
+
+export const deleteAsyncTopic = createAsyncThunk<
+  string,
+  number,
+  { rejectValue: string }
+>("posts/categories/category/:id", async (payload: number, thunkApi) => {
+  try {
+    const authString: string =
+      "Bearer " + JSON.parse(localStorage.getItem("authToken")!).accessToken;
+
+    const response = await axios.delete(
+      `${URL}categories/category/${payload}`,
+      { headers: { Authorization: authString } }
+    );
+
+    return response.data;
+  } catch (err: any) {
+    thunkApi.rejectWithValue(err.response.data.message);
   }
 });

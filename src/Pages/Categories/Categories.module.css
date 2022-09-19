@@ -58,8 +58,12 @@
   border-color: #fb5096;
   padding: 0.5rem;
 }
-.add_category_form_div div {
+.error {
   color: darkred;
+  margin-bottom: 1rem;
+}
+.success {
+  color: rgb(2, 157, 2);
   margin-bottom: 1rem;
 }
 

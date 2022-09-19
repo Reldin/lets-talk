@@ -23,6 +23,7 @@ const App = () => {
     if (token) {
       const decodedToken: { username: string; iat: number; exp: number } =
         jwtDecode(token);
+      console.log(jwtDecode(token));
 
       if (new Date(decodedToken.exp * 1000).getTime() - Date.now() > 0) {
         dispatch(authActions.setUsername(decodedToken.username));
