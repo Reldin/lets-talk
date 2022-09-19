@@ -12,7 +12,6 @@
   justify-content: center;
   box-shadow: 0 1px 1px hsla(0, 0%, 0%, 0.25), 0 20px 48px hsla(0, 0%, 0%, 0.25),
     0 1px 4px hsla(0, 0%, 0%, 0.25);
-  /* width: 70%; */
   width: 65%;
   max-width: 500px;
   background-color: #ffffff;
@@ -25,7 +24,6 @@
 .main_section_add_category_control {
   display: flex;
   align-items: center;
-
   width: 100%;
 }
 
@@ -49,7 +47,7 @@
   display: flex;
   flex-direction: column;
   margin: 1rem;
-  width: 50%;
+  width: 100%;
 }
 .add_category_form_div button {
   margin: 10px auto;
@@ -72,9 +70,16 @@
   color: black;
 }
 .add_category_form_input {
+  display: block;
+  width: 100%;
   margin-top: 10px;
   margin-bottom: 10px;
-  max-width: 20rem;
+  max-width: 100%;
+  line-height: 1.5;
+  font-size: 1rem;
+  height: calc(2.25rem + 2px);
+  padding: 0.075rem 0.75rem;
+  border: 1px solid #ced4da;
 }
 
 .card_list {
@@ -112,4 +117,37 @@
   /* background-image: none; */
   transform: scale(1.2);
   /* background-color: rgba(7, 0, 7, 0.923); */
+}
+
+@media only screen and (max-width: 600px) {
+  .main_section_add_category {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 1px hsla(0, 0%, 0%, 0.25),
+      0 20px 48px hsla(0, 0%, 0%, 0.25), 0 1px 4px hsla(0, 0%, 0%, 0.25);
+    width: 85%;
+    /* max-width: 500px; */
+    background-color: #ffffff;
+  }
+  .add_category_form_div {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    width: 100%;
+  }
+
+  .add_category_form_input {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width: 100%;
+    line-height: 1.5;
+    font-size: 1rem;
+    height: calc(2.25rem + 2px);
+    padding: 0.075rem 0.75rem;
+    border: 1px solid #ced4da;
+  }
 }
