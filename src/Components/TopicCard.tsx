@@ -8,8 +8,9 @@ import Comment from "./Comment";
 import styles from "./TopicCard.module.css";
 
 interface TopicCardProps {
-  Title: string;
   topicId: number;
+  Title: string;
+  appUserId: number;
   Posts: PostInterface[];
 }
 
@@ -27,10 +28,10 @@ const TopicCard = (props: TopicCardProps) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/posts/categories/topic/1`)
+      .get(`http://localhost:3001/posts/categories/topic/${props.appUserId}`)
       .then((response) => setTopicOwner(response.data))
       .catch(() => console.log("fail"));
-  }, []);
+  }, [props.appUserId]);
 
   useEffect(() => {
     dispatch(postActions.clearState());

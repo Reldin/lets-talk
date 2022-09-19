@@ -21,6 +21,7 @@ interface PostInterface {
 interface TopicInterface {
   id: number;
   title: string;
+  appUserId: number;
   posts: PostInterface[];
   category: {
     id: number;
@@ -117,8 +118,9 @@ const Category = () => {
           .map((item) => (
             <TopicCard
               key={item.id}
-              topicId={item.id}
               Title={item.title}
+              topicId={item.id}
+              appUserId={item.appUserId}
               Posts={item.posts}
             />
           ))}
