@@ -6,7 +6,7 @@ const FrontPage = (props: any) => {
   return (
     <div className={styles.background}>
       <FrontImage />
-      <MenuComponent linkText="Check out the categories" />
+      <MenuComponent linkText="Click here for categories" />
     </div>
   );
 };

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { PostInterface } from "../helper/interfaces";
 import { useAppDispatch, useAppSelector } from "../hooks";
@@ -7,15 +6,19 @@ import { deleteAsyncTopic } from "../store/topicSlice";
 import Comment from "./Comment";
 import styles from "./TopicCard.module.css";
 
+interface AppUserInterface {
+  id: number;
+  username: string;
+}
+
 interface TopicCardProps {
   topicId: number;
   Title: string;
-  appUserId: number;
+  appUser: AppUserInterface;
   Posts: PostInterface[];
 }
 
 const TopicCard = (props: TopicCardProps) => {
-  const [topicOwner, setTopicOwner] = useState<string>();
   const [limit, setLimit] = useState<boolean>(true);
   const commentRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
@@ -25,13 +28,6 @@ const TopicCard = (props: TopicCardProps) => {
   const authState = useAppSelector((state) => state.auth);
 
   const postlimit: number = 3;
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3001/posts/categories/topic/${props.appUserId}`)
-      .then((response) => setTopicOwner(response.data))
-      .catch(() => console.log("fail"));
-  }, [props.appUserId]);
 
   useEffect(() => {
     dispatch(postActions.clearState());
@@ -71,14 +67,15 @@ const TopicCard = (props: TopicCardProps) => {
 
   return (
     <article className={styles.main}>
-      {authState.isAuthenticated && topicOwner === authState.username && (
-        <button
-          className={styles.main_delete}
-          onClick={() => handleDeleteTopic(props.topicId)}
-        >
-          X
-        </button>
-      )}
+      {authState.isAuthenticated &&
+        props.appUser.username === authState.username && (
+          <button
+            className={styles.main_delete}
+            onClick={() => handleDeleteTopic(props.topicId)}
+          >
+            X
+          </button>
+        )}
       <div className={styles.main_header}>
         <h1>{props.Title}</h1>
       </div>

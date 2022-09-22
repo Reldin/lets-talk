@@ -5,7 +5,6 @@
   align-items: center;
   min-width: 50%;
   min-height: 50vh;
-  background-color: #494e68;
   margin-top: 50px;
 }
 
@@ -15,17 +14,15 @@
   text-decoration: underline;
   text-underline-offset: 5px;
   text-decoration: none;
-  color: white;
+  color: black;
 }
 
 @media screen and (max-width: 600px) {
   .main {
-    display: flex;
-    flex-flow: column 0;
-    justify-content: center;
-    align-items: center;
     min-width: 80%;
-    min-height: 50vh;
-    background-color: #494e68;
+  }
+
+  .link {
+    font-size: 1.6rem;
   }
 }
