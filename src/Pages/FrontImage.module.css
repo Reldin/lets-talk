@@ -1,0 +1,32 @@
+.main {
+  display: flex;
+  width: 100%;
+  height: 90vh;
+  /* background-image: url("../../public/winter-walk-1339856.jpg"); */
+  /* background-image: url("../../public/eberhard-grossgasteiger.jpg"); */
+  background-image: url("../../public/eberhard-grossgasteiger-placeholder.jpg");
+  background-size: cover;
+  background-position: top;
+  background-attachment: fixed;
+  align-items: center;
+  justify-content: center;
+}
+
+.main_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.main_content h1 {
+  color: var(--front-h1-primary);
+  margin: 0;
+  text-shadow: -1px 0 black, 0 1px rgb(117 117 117);
+  /* text-shadow: -1px 0 rgb(117 117 117), 0 1px black, 1px 0 black, 0 -1px black; */
+}
+.main_content h2 {
+  /* color: rgb(50, 46, 46); */
+  margin: 0;
+  color: var(--front-h1-primary);
+  text-shadow: -1px 0 black, 0 1px rgb(117 117 117);
+  /* text-shadow: -1px 0 rgb(117 117 117), 0 1px black, 1px 0 black, 0 -1px black; */
+}

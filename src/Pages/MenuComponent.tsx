@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styles from "./MenuComponent.module.css";
 
 interface MenuComponentProps {
@@ -7,9 +8,9 @@ interface MenuComponentProps {
 const MenuComponent = (props: MenuComponentProps) => {
   return (
     <div className={styles.main}>
-      <a href="/" className={styles.link}>
+      <Link to="/categories" className={styles.link}>
         {props.linkText}
-      </a>
+      </Link>
     </div>
   );
 };

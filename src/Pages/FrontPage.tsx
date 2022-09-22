@@ -1,10 +1,12 @@
+import FrontImage from "./FrontImage";
 import styles from "./FrontPage.module.css";
 import MenuComponent from "./MenuComponent";
 
 const FrontPage = (props: any) => {
   return (
     <div className={styles.background}>
-      <MenuComponent linkText="Start Chat" />
+      <FrontImage />
+      <MenuComponent linkText="Click here for categories" />
     </div>
   );
 };

@@ -2,12 +2,19 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { PostInterface } from "../helper/interfaces";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { addAsyncPost, IPost, postActions } from "../store/postSlice";
+import { deleteAsyncTopic } from "../store/topicSlice";
 import Comment from "./Comment";
 import styles from "./TopicCard.module.css";
 
+interface AppUserInterface {
+  id: number;
+  username: string;
+}
+
 interface TopicCardProps {
-  Title: string;
   topicId: number;
+  Title: string;
+  appUser: AppUserInterface;
   Posts: PostInterface[];
 }
 
@@ -18,6 +25,7 @@ const TopicCard = (props: TopicCardProps) => {
   const { isError, isFetching, isSuccess } = useAppSelector(
     (state) => state.post
   );
+  const authState = useAppSelector((state) => state.auth);
 
   const postlimit: number = 3;
 
@@ -41,6 +49,10 @@ const TopicCard = (props: TopicCardProps) => {
     );
   };
 
+  const handleDeleteTopic = (id: number) => {
+    dispatch(deleteAsyncTopic(id));
+  };
+
   useEffect(() => {
     if (isError) {
     }
@@ -55,7 +67,18 @@ const TopicCard = (props: TopicCardProps) => {
 
   return (
     <article className={styles.main}>
-      <h1>{props.Title}</h1>
+      {authState.isAuthenticated &&
+        props.appUser.username === authState.username && (
+          <button
+            className={styles.main_delete}
+            onClick={() => handleDeleteTopic(props.topicId)}
+          >
+            X
+          </button>
+        )}
+      <div className={styles.main_header}>
+        <h1>{props.Title}</h1>
+      </div>
       <form className={styles.main_comment}>
         <label htmlFor="Post">Post a Comment</label>
         <textarea

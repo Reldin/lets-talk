@@ -12,3 +12,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+:root {
+  --btn-primary: #fb5096;
+  /* --front-h1-primary: #990099; */
+  --front-h1-primary: #fff;
+}
